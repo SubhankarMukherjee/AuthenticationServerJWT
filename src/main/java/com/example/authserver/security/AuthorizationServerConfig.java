@@ -25,6 +25,7 @@ import java.security.KeyPair;
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     public static final String RESOURCE_ID = "couponservice";
+    public static final String RESOURCE_ID2 = "productservice";
     @Autowired
     AuthenticationManager manager;
     @Autowired
@@ -65,7 +66,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                // .scopes("read","write").resourceIds(RESOURCE_ID);
         clients.inMemory().withClient("couponClientapp").secret(encoder.encode("9999"))
           .authorizedGrantTypes("password","refresh_token")
-         .scopes("read","write").resourceIds(RESOURCE_ID);
+         .scopes("read","write").resourceIds(RESOURCE_ID)
+                .and()
+                .withClient("productClientapp").secret(encoder.encode("9999"))
+                .authorizedGrantTypes("password","refresh_token")
+                .scopes("read","write").resourceIds(RESOURCE_ID2);
+        ;
     }
 
     @Override
